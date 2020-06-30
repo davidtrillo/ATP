@@ -152,7 +152,7 @@ $app->get('/api/averias/actuacion/{id}',function(Request $request, Response $res
 });
 
 
-$app->get('/api/averias/tipoactuacion/{tipo}',function(Request $request, Response $response){
+$app->get('/api/averias/tipoaveria/{tipo}',function(Request $request, Response $response){
     // echo "todas las instalaciones";
     $id= $request->getAttribute('tipo');
     $sql="SELECT tipoaveria FROM atp.tipoaveria where categoria LIKE '%".$id."%';";
@@ -180,7 +180,84 @@ $app->get('/api/averias/tipoactuacion/{tipo}',function(Request $request, Respons
 });
 
 
+$app->get('/api/averias/ultima',function(Request $request, Response $response){
+    // echo "todas las instalaciones";
+    //$id= $request->getAttribute('tipo');
+    $sql="SELECT id FROM atp.averia order by id desc limit 1";
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
 
+        if($resultado->rowCount()>0){
+            $tipoInstalacion= $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($tipoInstalacion,JSON_UNESCAPED_UNICODE);
+            
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+
+    
+});
+
+//POST para crear una nueva instalación CREATE
+
+$app->post('/api/nuevo/averia',function(Request $request, Response $response){
+    //declaracion de las variables de recepcion desde FRONT
+
+    $instalacion=$request->getParam('instalacion');
+    $averia=$request->getParam('averia');
+    $observacion=$request->getParam('observacion');
+    $nid=$request->getParam('nid');
+    $usuario=$request->getParam('usuario');
+    $fecha=$request->getParam('fecha');
+    $facturada=$request->getParam('facturada');
+    $ubicacion=$request->getParam('ubicacion');
+    $tipoInstalacion=$request->getParam('tipoInstalacion');
+
+    // echo $usuario;
+    // echo $fecha;
+    // echo $descripcion;
+    // echo $idaveria;
+   
+    $sql="INSERT INTO atp.averia(instalacion,averia,observacion,nid,usuario,fecha,facturada,ubicacion,tipoInstalacion) VALUES (:instalacion,:averia,:observacion,:nid,:usuario,:fecha,:facturada,:ubicacion,:tipoInstalacion);";
+ 
+
+   try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+
+
+        //Asignar campos del SQL a las variables obtenidas
+         $resultado->bindParam(':instalacion',$instalacion);
+         $resultado->bindParam(':averia',$averia);
+         $resultado->bindParam(':observacion',$observacion);
+         $resultado->bindParam(':nid',$nid );
+         $resultado->bindParam(':usuario',$usuario);
+         $resultado->bindParam(':fecha',$fecha);
+         $resultado->bindParam(':facturada',$facturada);
+         $resultado->bindParam(':ubicacion',$ubicacion);
+         $resultado->bindParam(':tipoInstalacion',$tipoInstalacion);
+       
+
+        $resultado->execute();
+        echo json_encode("Registro guardado con éxito",JSON_UNESCAPED_UNICODE);
+
+        $resultado=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+});
 
 //POST para crear una nueva instalación CREATE
 
@@ -225,6 +302,9 @@ $app->post('/api/nuevo/estado2',function(Request $request, Response $response){
         echo '{"error":{"text":'.$e->getMessage().'}';
     }
 });
+
+
+
 
 
 $app->post('/api/nuevo/actuacion',function(Request $request, Response $response){

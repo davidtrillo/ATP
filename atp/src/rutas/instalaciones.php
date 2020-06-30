@@ -14,7 +14,7 @@
 
 $app->get('/api/tipoinstalacion',function(Request $request, Response $response){
     // echo "todas las instalaciones";
-    $sql="SELECT tipoInstalacion FROM instalaciones group by tipoInstalacion order by 1";
+    $sql="SELECT tipoInstalacion FROM gestin.instalaciones where tipoInstalacion not like 'ALMACÉN' group by tipoInstalacion order by 1";
     try{
         $db= new db();     
         $db=$db->conectDB();

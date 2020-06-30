@@ -162,7 +162,7 @@ async function getEstado(id) {
             </div>
             <div class="col-xl-2 col-lg-2 col-md-3 p-1 ">
                 <div class="input-group mt-1">
-                    <input type="text" class="form-control"  aria-label="Text input with segmented dropdown button"  id="inputEstado" value="">
+                    <input type="text" class="form-control"  aria-label="Text input with segmented dropdown button"  id="inputEstado" value="" disabled>
                         <div class="input-group-append">
                             <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
@@ -343,7 +343,7 @@ async function getActuacion(id) {
             <div class="col-xl-3 col-lg-4 col-md-4 p-1 ">
             <div class="input-group mt-1">
                 <input type="text" class="form-control" aria-label="Text input with segmented dropdown button"
-                    id="inputActuacion" value="">
+                    id="inputActuacion" value="" disabled>
                 <div class="input-group-append">
                     <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
@@ -361,7 +361,7 @@ async function getActuacion(id) {
             <div class="col-xl-2 col-lg-2 col-md-2 p-1 ">
             <div class="input-group mt-1">
                 <input type="text" class="form-control" aria-label="Text input with segmented dropdown button"
-                    id="inputNID" value="">
+                    id="inputNID" value="" disabled>
                 <div class="input-group-append">
                     <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
@@ -529,7 +529,7 @@ async function nuevoEstado() {
             .then(res => res.json())
             .catch(error => console.error('Error:', error))
             .then(response => {
-                alert(response)
+                // alert(response)
             })
 
         recargar(document.getElementById("inputId").value);

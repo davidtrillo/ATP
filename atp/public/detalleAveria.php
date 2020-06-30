@@ -76,7 +76,7 @@ include './login/session.php';
                </li> -->
 
                <a class="nav-item nav-link " href="./welcome.php">Listado de Averías</a>
-               <a class="nav-item nav-link active" href="./detalleAveria.php">Detalle Averías</a>
+               <a class="nav-item nav-link " href="./nuevaAveria.php">Nueva Avería</a>
 
                <!-- <li class="nav-item dropdown ">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
