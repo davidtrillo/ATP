@@ -163,12 +163,28 @@ include './login/session.php';
                   </div>
 
                   <hr class="m-0 border border-dark">
-            
-               <!-- Fin Nuevo -->
+         
             </div>
-            
+               <!------------------------------------------------------- Materiales ---------------------------------------------------------->
+               <div class="container-fluid mt-0 bg-light text-dark p-0">
+                  <hr class="border border-dark">    
+                     <!-- Titulos -->
+                  <div id="materialesTitulos" >
+
+                  </div>
+
+                  <!-- Cuerpo -->
+                  <div id="materialesCuerpo" class="">
+                     <!-- repeticion -->
+                     <!-- fin repeticion -->
+                  </div>
+
+                  <hr class="m-0 border border-dark">
+         
+            </div>
 
 </div> <!-- Fin General -->
+
 
 
       <!-- Formulario footer Nuevo-->

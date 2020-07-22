@@ -101,16 +101,47 @@ include './login/session.php';
    <!-- Container de cabecera -->
   
    <div class="container-fluid">
+      <div class="container-fluid">
    
-   <div class="mt-2">
-      <button type="button" class="btn btn-danger" onclick="getPendientes()">Pendientes</button>
-      <button type="button" class="btn btn-success"  onclick="getRealizadas()">Realizadas</button>
-      
-      Fecha
-      <input  type="text">
-      <button type="button" class="btn btn-secondary">Aplicar Filtro</button>
+         <div class="row mt-2 p-1">
+           
+         <div class="col-3 mt-4 "> 
+               <button type="button" class="btn btn-danger" onclick="getPendientes()" id="btnPendientes">Pendientes</button>
+               <button type="button" class="btn btn-success"  onclick="getRealizadas()" id="btnRealizadas">Realizadas</button>
+               <button type="button" class="btn btn-info"  onclick="getFacturadas()" id="btnFacturadas">Facturadas</button>
 
-   </div>
+         </div>
+      
+         <div class="col-1 p-0 ml-0 "> 
+            <span>Instalación</span>
+            <input  type="text" class="form-control " id="inputFiltroInstalacion">
+         </div>
+
+         <div class="col-1 p-0 mt-4"> 
+            <button type="button" class="btn btn-secondary " onclick="getFiltroInstalacion()" id="btnFiltroInstalacion"><i class="fas fa-filter"></i></button>
+         </div>
+               
+         <div class="col-2  p-0 "> 
+            <span>Fecha</span>
+            <input  type="date" class="form-control " id="inputFiltroFecha">
+         </div>
+
+         <div class="col-1 p-0 mt-4"> 
+            <button type="button" class="btn btn-secondary" onclick="getFiltroFecha()" id="btnFiltroFecha"><i class="fas fa-filter"></i></button>
+         </div>
+                        
+         <div class="col-1 p-0 ">
+            <span>Id. Avería</span>       
+            <input  type="text" class="form-control " id="inputFiltroId">
+         </div>
+         <div class="col-1 p-0 mt-4"> 
+            <button type="button" class="btn btn-secondary" onclick="getFiltroId()" id="btnFiltroId"><i class="fas fa-filter"></i></button>
+         </div>
+
+
+         </div>
+      </div>
+
 
    <hr>
 
@@ -136,12 +167,14 @@ include './login/session.php';
       <!-- -->
 
 
-   <!-- Formulario footer Nuevo-->
-   <div class="mt-2 p-2 fixed-bottom" id="formFooter">
-      <img src="../img/logoajuntament.jpg" alt="" class="img-fluid float-right" style="height:50px">
    </div>
+   <!-- Formulario footer Nuevo
+   <div class="container-fluid fixed-bottom">
+         <div class="mt-2 p-2 fixed-bottom" id="formFooter">
+            <img src="../img/logoajuntament.jpg" alt="" class="img-fluid float-right" style="height:50px">
+         </div>
+   </div> -->
    <!-- fin formulario Footer-->
-
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

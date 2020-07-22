@@ -36,7 +36,29 @@ async function putInstalacion(tipo,ubicacion){
     t.value=tipo;
     var u=document.getElementById("inputUbicacion");
     u.value=ubicacion;
-    getNID(tipo);
+
+    var url = 'http://172.27.120.120/atp/public/api/averias/instalacion/'+tipo;
+    var count= await fetch(url, {
+         method: 'GET',
+         headers: {
+             'Content-Type': 'application/json'
+         }
+     })
+     .then(res => res.json())
+     .catch(error => console.error('Error:', error))
+     .then(response => {
+         if (response == "No se han encontrado resultados") {
+         
+ 
+         } else {
+           
+             return response;
+         }
+     })
+     if (count[0]["count(a.id)"]>0) {
+        alert("Hay "+ count[0]["count(a.id)"] +" avería/s abierta/s")   ;
+     }
+    await getNID(tipo);
 }
 
 async function putTipoAveria(tipo){
@@ -44,10 +66,9 @@ async function putTipoAveria(tipo){
     t.value=tipo;
 }
 
-
 async function getNID(idCruce){
     var tipo=document.getElementById("inputTipoInstalacion").value.substring(0,5);
-       
+
     if (tipo=="CRUCE") {
 
        //var idCruce=document.getElementById("inputInstalacion").value;
@@ -78,6 +99,8 @@ async function getNID(idCruce){
         }
         document.getElementById("dropdownListNID").innerHTML=listNid;  
 
+    }else{
+        document.getElementById("dropdownListNID").innerHTML=""; 
     }
 
 
@@ -150,7 +173,7 @@ async function getTipoInstalación() {
 }
 
 async function getInstalacion(tipo) {
-console.log(tipo);
+
     var url = 'http://172.27.120.120/atp/public/api/instalaciones/'+tipo;
      instalacion= await fetch(url, {
         method: 'GET',
@@ -182,9 +205,7 @@ console.log(tipo);
 
 }
 
-
-
- async function getTipoActuacion(tipo) {
+async function getTipoActuacion(tipo) {
          //CREA UNA CONSULTA DE CATEGORIAS QUE HAY ACTUACIONES SEGUN EL TIPO DE ISNTALCION ELEGIDO EN AVERIA
          //CREA UN ARRAY DE ACTUACIONES E INSERTARLO EN EL DROPDOWN MENU    
          var url = 'http://172.27.120.120/atp/public/api/averias/tipoaveria/'+tipo;
@@ -204,71 +225,7 @@ console.log(tipo);
                  return response;
              }
          })
- }
-
-
-
-
-
-// async function nuevoEstado() {
- 
-//     var m = new Date();
-//     var dateString =
-//     m.getFullYear() + "/" +
-//     ("0" + (m.getMonth()+1)).slice(-2) + "/" +
-//     ("0" + m.getDate()).slice(-2) + " " +
-//     ("0" + m.getHours()).slice(-2) + ":" +
-//     ("0" + m.getMinutes()).slice(-2) + ":" +
-//     ("0" + m.getSeconds()).slice(-2);
-    
-
-//     var fecha = dateString;
-//     var usuario = document.getElementById('inputIdUsuario').value;
-//     var estado =  document.getElementById('inputEstado').value;
-//     var descripcion =  document.getElementById('inputDescripcionEstado').value;
-//     var idaveria = document.getElementById('inputIdAveria').value;
-
-
-//     // console.log(usuario);
-//     // console.log(fecha);
-//     // console.log(estado);
-//     // console.log(descripcion);
-//     // console.log(idaveria);
-
-
-//     var url = 'http://172.27.120.120/atp/public/api/nuevo/estado2';
-
-//      await fetch(url, {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json'
-//                 },
-//                 body: JSON.stringify({
-//                     idaveria: idaveria,
-//                     fecha: fecha,
-//                     estado: estado,
-//                     descripcion: descripcion.toUpperCase(),
-//                     usuario: usuario
-
-//                     //  idaveria:1, //idaveria,
-//                     //  fecha:"2020/01/19 10:00", //fecha,
-//                     //  estado: "estadoDAvid",//estado,
-//                     //  descripcion:"descripcion David", //descripcion,
-//                     //  idUsuario: "dtrillo"//usuario
-//                 })
-//             })
-//             .then(res => res.json())
-//             .catch(error => console.error('Error:', error))
-//             .then(response => {
-//                 alert(response)
-//             })
-
-//         recargar(document.getElementById("inputId").value);
-// }
-
-
-
-
+}
 
 async function nuevaAveria() {
 
@@ -353,9 +310,9 @@ async function nuevaAveria() {
                     }
                 })
 
-                console.log(ultima["id"]);
+                
                 //creamos una nueva actuacion
-                var url = 'http://172.27.120.120/atp/public/api/nuevo/estado3';
+                var url = 'http://172.27.120.120/atp/public/api/nuevo/estado2';
 
                 await fetch(url, {
                            method: 'POST',
@@ -365,7 +322,7 @@ async function nuevaAveria() {
                            body: JSON.stringify({
                                idaveria: ultima[0]["id"],
                                fecha: fecha,
-                               estado: "INICIADA",
+                               estado: "PENDIENTE",
                                descripcion: "",
                                usuario: usuario
            
@@ -379,21 +336,12 @@ async function nuevaAveria() {
                        .then(res => res.json())
                        .catch(error => console.error('Error:', error))
                        .then(response => {
-                           alert(response)
+                        location.href ="http://172.27.120.120/atp/public/welcome.php";
                        })
 
 
 
 }
-
-
-
-
-
-
-
-
-
 
 function putEstado(item) {
     var p=document.getElementById("inputEstado");
@@ -413,9 +361,6 @@ function putNid(item) {
 
 }
 
-
-
-
 function convertDate(inputFormat) {
     var dt = new Date(inputFormat)
    return (`${
@@ -424,4 +369,4 @@ function convertDate(inputFormat) {
        dt.getFullYear().toString().padStart(4, '0')} ${
        dt.getHours().toString().padStart(2, '0')}:${
        dt.getMinutes().toString().padStart(2, '0')}`)
- }
+}
