@@ -658,3 +658,63 @@ $app->post('/api/nuevo/actuacion',function(Request $request, Response $response)
     }
 });
 
+$app->get('/api/material/familia',function(Request $request, Response $response){
+    // echo "todas las instalaciones";
+    //$sql="SELECT a.id, t.estado, a.fecha, a.instalacion,a.averia,a.ubicacion FROM atp.averia a inner join atp.estado t on a.id=t.idaveria where t.estado<>'ACABADA' order by 3 desc;";
+    $sql="SELECT familia from atp.tipomaterial group by familia order by 1 asc";
+    
+    
+    
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+
+        if($resultado->rowCount()>0){
+            $tipoInstalacion= $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($tipoInstalacion,JSON_UNESCAPED_UNICODE);
+            
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+
+    
+});
+
+$app->get('/api/material/categoria/{familia}',function(Request $request, Response $response){
+    // echo "todas las instalaciones";
+    //$sql="SELECT a.id, t.estado, a.fecha, a.instalacion,a.averia,a.ubicacion FROM atp.averia a inner join atp.estado t on a.id=t.idaveria where t.estado<>'ACABADA' order by 3 desc;";
+    $familia = $request->getAttribute('familia');
+    $sql="SELECT categoria from atp.tipomaterial where familia='".$familia."' GROUP BY categoria order by 1 asc";
+    
+    
+    
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+
+        if($resultado->rowCount()>0){
+            $tipoInstalacion= $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($tipoInstalacion,JSON_UNESCAPED_UNICODE);
+            
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+
+    
+});

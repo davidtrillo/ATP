@@ -558,8 +558,8 @@ async function getMateriales(id) {
         //busca los tiposdeactuacion
       
       
-       var url = 'http://172.27.120.120/atp/public/api/averias/tipoactuacion/'+tipo;
-       var tipoActuacion= await fetch(url, {
+       var url = 'http://172.27.120.120/atp/public/api/material/familia';
+       var familia= await fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -580,10 +580,9 @@ async function getMateriales(id) {
        // var tipoActuacion=await getTipoActuacion(tipo);
        //         console.log(tipoActuacion);
 
-        var listTipoActuacion='';
-        for (let i in tipoActuacion) {
-    
-            listTipoActuacion += '<button class="dropdown-item" onclick="putActuacion(this.innerText)">'+tipoActuacion[i]["tipoactuacion"]+'</button>'    
+        var listFamilia='';
+        for (let i in familia) {
+                listFamilia += '<button class="dropdown-item" onclick="putFamilia(this.innerText)">'+familia[i]["familia"]+'</button>'    
         }
     
         //busca los nid si es un cruce
@@ -621,8 +620,8 @@ async function getMateriales(id) {
 
        
     
-    var url = 'http://172.27.120.120/atp/public/api/averias/actuacion/'+id;
-    var actuacion= await fetch(url, {
+    var url = 'http://172.27.120.120/atp/public/api/material/'+id;
+    var material= await fetch(url, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -679,120 +678,120 @@ async function getMateriales(id) {
 
             <hr class="m-0 mt-1 border border-muted">
     
-            <div class="row ml-1">
-            <div class="col-xl-1 col-lg-2 col-md-3 p-1 ">
-            <input type="text" class="form-control mt-1" value="" id="inputFechaActuacion"
+        <div class="row ml-1">
+            <div class="col-xl-1  p-1 ">
+            <input type="text" class="form-control mt-1" value="" id="inputFechaMaterial"
                 aria-label="Fecha Hora" aria-describedby="basic-addon1" disabled>
             </div>
-            <div class="col-xl-1 col-lg-2 col-md-3 p-1 ">
-            <input type="text" class="form-control mt-1" value="" id="inputUsuario" aria-label="Usuario"
-                aria-describedby="basic-addon1" disabled>
+            
+            <div class="col-xl-1  p-1 ">
+                <input type="text" class="form-control mt-1" value="" id="inputUsuario" aria-label="Usuario"
+                    aria-describedby="basic-addon1" disabled>
             </div>
-            <div class="col-xl-1 col-lg-4 col-md-4 p-1 ">
-            <div class="input-group mt-1">
-                <input type="text" class="form-control" aria-label="Text input with segmented dropdown button"
-                    id="inputFamilia" value="" disabled>
-                <div class="input-group-append">
-                    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
-                    <div class="dropdown-menu" id="dropdownListFamilia">
-                            `+listFamilia+`
-    
+            <div class="col-xl-1  p-1 ">
+                <div class="input-group mt-1">
+                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button"
+                        id="inputFamilia" value="" disabled>
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
+                        <div class="dropdown-menu" id="dropdownListFamilia">
+                                `+listFamilia+`
+        
+                        </div>
                     </div>
                 </div>
             </div>
-            </div>
-            <div class="col-xl-1 col-lg-4 col-md-4 p-1 ">
-            <div class="input-group mt-1">
-                <input type="text" class="form-control" aria-label="Text input with segmented dropdown button"
-                    id="inputCategoria" value="" disabled>
-                <div class="input-group-append">
-                    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
-                    <div class="dropdown-menu" id="dropdownListCategoria">
-                            `+listCategoria+`
-    
+            <div class="col-xl-1  p-1 ">
+                <div class="input-group mt-1">
+                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button"
+                        id="inputCategoria" value="" disabled>
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
+                        <div class="dropdown-menu" id="dropdownListCategoria">
+                                
+        
+                        </div>
                     </div>
                 </div>
-            </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-4 p-1 ">
-            <div class="input-group mt-1">
-                <input type="text" class="form-control" aria-label="Text input with segmented dropdown button"
-                    id="inputDetalle" value="" disabled>
-                <div class="input-group-append">
-                    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
-                    <div class="dropdown-menu" id="dropdownListDetalle">
-                            `+listDetalle+`
-    
-                    </div>
-                </div>
-            </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4 col-md-4 p-1 ">
-            <input type="text" class="form-control mt-1" value="" id="inputObservacionMaterial"
-                aria-label="Observacion" aria-describedby="basic-addon1">
-            </div>
-            <div class="col-xl-2 col-lg-2 col-md-2 p-1 ">
-            <div class="input-group mt-1">
-                <input type="text" class="form-control" aria-label="Text input with segmented dropdown button"
-                    id="inputNID" value="" disabled>
-                <div class="input-group-append">
-                    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
-                    <div class="dropdown-menu" id="dropdownNIDMaterial">
-                        `+listNid+`
+            <div class="col-xl-3  p-1 ">
+                <div class="input-group mt-1">
+                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button"
+                        id="inputDetalle" value="" disabled>
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
+                        <div class="dropdown-menu" id="dropdownListDetalle">
+                                
+        
+                        </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-warning ml-5" onclick="nuevaActuacion()">Guardar</button>
             </div>
-    
+
+            <div class="col-xl-3  p-1 ">
+                 <input type="text" class="form-control mt-1" value="" id="inputObservacionMaterial"
+                      aria-label="Observacion" aria-describedby="basic-addon1">
             </div>
+            <div class="col-xl-2  p-1 ">
+                <div class="input-group mt-1">
+                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button"
+                        id="inputNID" value="" disabled>
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
+                        <div class="dropdown-menu" id="dropdownNIDMaterial">
+                            `+listNid+`
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-warning ml-2" onclick="nuevaActuacion()">Guardar</button>
+                </div>
             </div>
+        </div>
             <hr class="m-0 mt-1 mb-1 border border-muted">
     `;
     }
-//////////////////////////////////////////////////////////////////////AQUÍ ME QUEDÉ
         //agregar contenido
         //rellena el facturable 
-    for (let i in actuacion) {   
+    for (let i in material) {   
         if (rol[0]['rol']=="facturar"){
 
             if (document.getElementById("inputFacturado").checked==false) {
-                    if (actuacion[i]["facturable"]=="si") {
+                    if (material[i]["facturable"]=="si") {
                         
-                        var facturable=`<span class="">Sí</span><input class="mr-4 ml-2" type="checkbox" id="inputFacturableSi${actuacion[i].id}" aria-label="Radio button for following text input" onclick="facturarSi(${actuacion[i].id})" checked>
-                                        <span class="">No</span><input type="checkbox" class="ml-2" id="inputFacturableNo${actuacion[i].id}" aria-label="Radio button for following text input" onclick="facturarNo(${actuacion[i].id})">
+                        var facturable=`<span class="">Sí</span><input class="mr-4 ml-2" type="checkbox" id="inputFacturableSiMaterial${material[i].id}" aria-label="Radio button for following text input" onclick="facturarSi(${actuacion[i].id})" checked>
+                                        <span class="">No</span><input type="checkbox" class="ml-2" id="inputFacturableNoMaterial${material[i].id}" aria-label="Radio button for following text input" onclick="facturarNo(${actuacion[i].id})">
                                         `;
                     }   
-                    if (actuacion[i]["facturable"]=="no") {
-                        var facturable=`<span class="">Sí</span><input class="mr-4 ml-2" type="checkbox" id="inputFacturableSi${actuacion[i].id}" aria-label="Radio button for following text input" onclick="facturarSi(${actuacion[i].id})">
-                                        <span class="">No</span><input type="checkbox" class="ml-2" id="inputFacturableNo${actuacion[i].id}" aria-label="Radio button for following text input" onclick="facturarNo(${actuacion[i].id})" checked>
+                    if (material[i]["facturable"]=="no") {
+                        var facturable=`<span class="">Sí</span><input class="mr-4 ml-2" type="checkbox" id="inputFacturableSiMaterial${material[i].id}" aria-label="Radio button for following text input" onclick="facturarSi(${actuacion[i].id})">
+                                        <span class="">No</span><input type="checkbox" class="ml-2" id="inputFacturableNoMaterial${material[i].id}" aria-label="Radio button for following text input" onclick="facturarNo(${actuacion[i].id})" checked>
                                         `;
                     } 
-                    if (actuacion[i]["facturable"]==null) {
-                        var facturable=`<span class="">Sí</span><input class="mr-4  ml-2" type="checkbox" id="inputFacturableSi${actuacion[i].id}" aria-label="Radio button for following text input" onclick="facturarSi(${actuacion[i].id})">
-                                        <span class="">No</span><input type="checkbox" class="ml-2" id="inputFacturableNo${actuacion[i].id}" aria-label="Radio button for following text input" onclick="facturarNo(${actuacion[i].id})">
+                    if (material[i]["facturable"]==null) {
+                        var facturable=`<span class="">Sí</span><input class="mr-4  ml-2" type="checkbox" id="inputFacturableSiMaterial${material[i].id}" aria-label="Radio button for following text input" onclick="facturarSi(${actuacion[i].id})">
+                                        <span class="">No</span><input type="checkbox" class="ml-2" id="inputFacturableNoMaterial${material[i].id}" aria-label="Radio button for following text input" onclick="facturarNo(${actuacion[i].id})">
                                         `;
                     } 
 
             }else{
                     if (actuacion[i]["facturable"]=="si") {
                         
-                        var facturable=`<span class="">Sí</span><input class="mr-4 ml-2" type="checkbox" id="inputFacturableSi${actuacion[i].id}" aria-label="Radio button for following text input" checked disabled>
-                                        <span class="">No</span><input type="checkbox" class="ml-2" id="inputFacturableNo${actuacion[i].id}" aria-label="Radio button for following text input"  disabled>
+                        var facturable=`<span class="">Sí</span><input class="mr-4 ml-2" type="checkbox" id="inputFacturableSiMaterial${material[i].id}" aria-label="Radio button for following text input" checked disabled>
+                                        <span class="">No</span><input type="checkbox" class="ml-2" id="inputFacturableNoMaterial${material[i].id}" aria-label="Radio button for following text input"  disabled>
                                         `;
                     }   
                     if (actuacion[i]["facturable"]=="no") {
-                        var facturable=`<span class="">Sí</span><input class="mr-4 ml-2" type="checkbox" id="inputFacturableSi${actuacion[i].id}" aria-label="Radio button for following text input"  disabled>
-                                        <span class="">No</span><input type="checkbox" class="ml-2" id="inputFacturableNo${actuacion[i].id}" aria-label="Radio button for following text input" checked disabled>
+                        var facturable=`<span class="">Sí</span><input class="mr-4 ml-2" type="checkbox" id="inputFacturableSiMaterial${material[i].id}" aria-label="Radio button for following text input"  disabled>
+                                        <span class="">No</span><input type="checkbox" class="ml-2" id="inputFacturableNoMaterial${material[i].id}" aria-label="Radio button for following text input" checked disabled>
                                         `;
                     } 
                     if (actuacion[i]["facturable"]==null) {
-                        var facturable=`<span class="">Sí</span><input class="mr-4  ml-2" type="checkbox" id="inputFacturableSi${actuacion[i].id}" aria-label="Radio button for following text input"  disabled>
-                                        <span class="">No</span><input type="checkbox" class="ml-2" id="inputFacturableNo${actuacion[i].id}" aria-label="Radio button for following text input"  disabled>
+                        var facturable=`<span class="">Sí</span><input class="mr-4  ml-2" type="checkbox" id="inputFacturableSiMaterial${material[i].id}" aria-label="Radio button for following text input"  disabled>
+                                        <span class="">No</span><input type="checkbox" class="ml-2" id="inputFacturableNoMaterial${material[i].id}" aria-label="Radio button for following text input"  disabled>
                                         `;
                     } 
             }
@@ -803,19 +802,19 @@ async function getMateriales(id) {
         r.innerHTML +=`
             <div class="row ml-1">
                 <div class="col-xl-1 col-lg-2 col-md-3 p-1 ">
-                    <input type="text" class="form-control mt-0" value="${convertDate(actuacion[i]["fecha"])}" aria-label="Fecha Hora" aria-describedby="basic-addon1" disabled>
+                    <input type="text" class="form-control mt-0" value="${convertDate(material[i]["fecha"])}" aria-label="Fecha Hora" aria-describedby="basic-addon1" disabled>
                 </div>
                 <div class="col-xl-1 col-lg-2 col-md-3 p-1 ">
-                    <input type="text" class="form-control mt-0" value="${actuacion[i]["usuario"]}"  aria-label="Usuario" aria-describedby="basic-addon1" disabled>
+                    <input type="text" class="form-control mt-0" value="${material[i]["usuario"]}"  aria-label="Usuario" aria-describedby="basic-addon1" disabled>
                 </div>
                 <div class="col-xl-3 col-lg-4 col-md-4 p-1 ">
-                    <input type="text" class="form-control mt-0" value="${actuacion[i]["actuacion"]}" aria-label="Text input with segmented dropdown button" value="" disabled>
+                    <input type="text" class="form-control mt-0" value="${material[i]["actuacion"]}" aria-label="Text input with segmented dropdown button" value="" disabled>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-4 p-1 ">
-                    <input type="text" class="form-control mt-0" value="${actuacion[i]["observaciones"]}" aria-label="Observacion" aria-describedby="basic-addon1" disabled>
+                    <input type="text" class="form-control mt-0" value="${material[i]["observaciones"]}" aria-label="Observacion" aria-describedby="basic-addon1" disabled>
                 </div>
                 <div class="col-xl-1 col-lg-2 col-md-2 p-1 ">
-                    <input type="text" class="form-control mt-0" value="${actuacion[i]["nid"]}" aria-label="Text input with segmented dropdown button" value="" disabled>
+                    <input type="text" class="form-control mt-0" value="${material[i]["nid"]}" aria-label="Text input with segmented dropdown button" value="" disabled>
                 </div>
                 <div class="col-xl-2 col-lg-1 col-md-1 p-1 mt-0">
                     <div class="input-group p-0 ml-1">
@@ -976,6 +975,65 @@ async function nuevaActuacion() {
 
 }
 
+async function nuevoMaterial() {
+
+    var m = new Date();
+    var dateString =
+    m.getFullYear() + "/" +
+    ("0" + (m.getMonth()+1)).slice(-2) + "/" +
+    ("0" + m.getDate()).slice(-2) + " " +
+    ("0" + m.getHours()).slice(-2) + ":" +
+    ("0" + m.getMinutes()).slice(-2) + ":" +
+    ("0" + m.getSeconds()).slice(-2);
+    
+
+    var fecha = dateString;
+    var usuario = document.getElementById('inputIdUsuario').value;
+    var familia =  document.getElementById('inputFamilia').value;
+    var detalle =  document.getElementById('inputDetalle').value;
+    var observaciones =  document.getElementById('inputObservacioMaterial').value;
+    var idaveria = document.getElementById('inputIdAveria').value;
+    var nid = document.getElementById('inputNID').value;
+    var partida = document.getElementById('inputPartida').value;
+
+
+    // console.log(usuario);
+    // console.log(fecha);
+    // console.log(actuacion);
+    // console.log(observaciones);
+    // console.log(idaveria);
+    // console.log(nid);
+
+
+    var url = 'http://172.27.120.120/atp/public/api/nuevo/material';
+
+     await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idaveria: idaveria,
+                    fecha: fecha,
+                    familia: familia,
+                    detalle: detalle,
+                    partida:partida,
+                    observaciones: observaciones.toUpperCase(),
+                    usuario: usuario,
+                    nid:nid
+
+                })
+            })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+                alert(response)
+            })
+
+                recargar(document.getElementById("inputId").value);
+
+}
+
 function putEstado(item) {
     var p=document.getElementById("inputEstado");
     p.value=item;
@@ -985,7 +1043,70 @@ function putEstado(item) {
 function putActuacion(item) {
     var p=document.getElementById("inputActuacion");
     p.value=item;
+}
 
+async function putFamilia(item) {
+    var p=document.getElementById("inputFamilia");
+    p.value=item;
+
+    var url = 'http://172.27.120.120/atp/public/api/material/categoria/'+item;
+    var categoria= await fetch(url, {
+         method: 'GET',
+         headers: {
+             'Content-Type': 'application/json'
+         }
+     })
+     .then(res => res.json())
+     .catch(error => console.error('Error:', error))
+     .then(response => {
+         if (response == "No se han encontrado resultados") {
+         
+
+         } else {
+           
+             return response;
+         }
+     })
+    
+     var listCategoria='';
+     for (let i in categoria) {
+        listCategoria += '<button class="dropdown-item" onclick="putCategoria(this.innerText)">'+categoria[i]["categoria"]+'</button>'    
+     }
+     var l=document.getElementById("dropdownListCategoria");
+        l.innerHTML=listCategoria;
+  
+}
+
+async function putCategoria(item) {
+    var p=document.getElementById("inputCategoria");
+    p.value=item;
+
+    var url = 'http://172.27.120.120/atp/public/api/material/detalle/'+item;
+    var detalle= await fetch(url, {
+         method: 'GET',
+         headers: {
+             'Content-Type': 'application/json'
+         }
+     })
+     .then(res => res.json())
+     .catch(error => console.error('Error:', error))
+     .then(response => {
+         if (response == "No se han encontrado resultados") {
+         
+
+         } else {
+           
+             return response;
+         }
+     })
+    
+     var listDetalle='';
+     for (let i in detalle) {
+        listDetalle += '<button class="dropdown-item" onclick="putCategoria(this.innerText)">'+detalle[i]["detalle"]+'</button>'    
+     }
+     var l=document.getElementById("dropdownListDetalle");
+        l.innerHTML=listDetalle;
+  
 }
 
 function putNid(item) {
