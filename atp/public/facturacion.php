@@ -24,7 +24,6 @@ include './login/session.php';
       #dropdownListFamilia,
       #dropdownListCategoria,
       #dropdownListDetalle,
-      #dropdownListTipoActuacion,
       #dropdownNIDMaterial {
          height: 500px;
          overflow-y: auto;
@@ -76,7 +75,7 @@ include './login/session.php';
 
                <a class="nav-item nav-link " href="./welcome.php">Listado de Averías</a>
                <a class="nav-item nav-link " href="./nuevaAveria.php">Nueva Avería</a>
-               <a class="nav-item nav-link " href="./facturacion.php">Facturación</a>
+               <a class="nav-item nav-link active" href="./facturacion.php">Facturación</a>
 
                <!-- <li class="nav-item dropdown ">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -119,69 +118,27 @@ include './login/session.php';
    </div> -->
 
 <div class="container-fluid " id="general"> <!-- Container de General -->
-      <!-- Primera Row -->
-      
-    
 
-       <div class="container-fluid " id="detalleAveria"> <!-- Container de cabecera -->
+
+      <div class="container-fluid " id="detalleFacturacion"> <!-- Container de cabecera -->
       <!-- Primera Row -->
+      <div class="row" id="">
+         <div class="d-none d-lg-none d-xl-block col-xl-3 col-lg-2 col-md-3 p-1 ">
+               <span>Fecha Inicio</span>
+               <input type="date" class="form-control"  id="inputFechaIncio">
+         </div>
+         <div class="d-none d-lg-none d-xl-block col-xl-3 col-lg-2 col-md-3 p-1 ">
+               <span>Fecha Fin</span>
+               <input type="date" class="form-control" id="inputFechaFin">
+         </div>
+         <div class="d-none d-lg-none d-xl-block col-xl-3 col-lg-2 col-md-3 p-1 mt-4 ">
+            <button type="button" class="btn btn-success " onclick="generar()" >Generar Facturación</button>
+         </div>
+      </div>
       
       </div>
-       <!--Fin del container-fluid Cabecera -->
+    
 
-
-   
-
-
-         <div class="container-fluid bg-warning p-0"><!-- ----------------------------------------------------- Estados -------------------------------------------------------- -->
-          <hr class="border border-dark">     
-               <!-- Titulos -->
-               <div id="estadosTitulos">
-
-               </div>
-
-               <div id="estadosCuerpo">
-                     <!-- repeticion -->
-                     <!-- fin repeticion -->        
-               </div>
-
-               <hr class="m-0 border border-dark">
-         </div>
-
-   <!------------------------------------------------------- Actuaciones ---------------------------------------------------------->
-            <div class="container-fluid mt-0 bg-info text-white p-0">
-                  <hr class="border border-dark">    
-                     <!-- Titulos -->
-                  <div id="actuacionesTitulos" >
-
-                  </div>
-
-                  <!-- Cuerpo -->
-                  <div id="actuacionesCuerpo" class="">
-                     <!-- repeticion -->
-                     <!-- fin repeticion -->
-                  </div>
-
-                  <hr class="m-0 border border-dark">
-         
-            </div>
-               <!------------------------------------------------------- Materiales ---------------------------------------------------------->
-               <div class="container-fluid mt-0 bg-light text-dark p-0">
-                  <hr class="border border-dark">    
-                     <!-- Titulos -->
-                  <div id="materialesTitulos" >
-
-                  </div>
-
-                  <!-- Cuerpo -->
-                  <div id="materialesCuerpo" class="">
-                     <!-- repeticion -->
-                     <!-- fin repeticion -->
-                  </div>
-
-                  <hr class="m-0 border border-dark">
-         
-            </div>
 
 </div> <!-- Fin General -->
 
@@ -206,7 +163,7 @@ include './login/session.php';
       </script>
 
 
-      <script src="../js/detalleAveria.js"></script>
+      <script src="../js/facturacion.js"></script>
       
 
 </body>

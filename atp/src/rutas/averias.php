@@ -157,7 +157,7 @@ $app->get('/api/averias/tipoactuacion/{tipo}',function(Request $request, Respons
     $tipo= $request->getAttribute('tipo');
     $tipo=substr($tipo,0,5);
     
-    $sql="SELECT tipoactuacion FROM atp.tipoactuacion where categoria LIKE '%".$tipo."%';";
+    $sql="SELECT tipoactuacion, partida FROM atp.tipoactuacion where categoria LIKE '%".$tipo."%' ORDER BY tipoactuacion;";
     try{
         $db= new db();     
         $db=$db->conectDB();
@@ -519,6 +519,122 @@ $app->put('/api/modificarfacturablenull/{id}', function (Request $request, Respo
         echo '{"error":{"text":' . $e->getMessage() . '}';
     }
 });
+
+$app->put('/api/modificarfacturablematerialsi/{id}', function (Request $request, Response $response) {
+    //declaracion de las variables de recepcion desde FRONT
+
+    $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
+
+    // echo "todas las instalaciones";
+
+    //  $sql='UPDATE 12_bici SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
+    $sql = "UPDATE atp.material SET facturable = 'si' WHERE (id ='".$id."' )";
+
+    try {
+        $db = new db();
+        $db = $db->conectDB();
+        $resultado = $db->prepare($sql);
+
+        //Asignar campos del SQL a las variables obtenidas
+       // $resultado->bindParam(':id',$id);
+        // $resultado->bindParam(':idTipoActuacion', $idTipoActuacion);
+        // $resultado->bindParam(':idNumSerie', $idNumSerie);
+        // $resultado->bindParam(':albaran', $albaran);
+        // $resultado->bindParam(':observaciones', $observaciones);
+        // $resultado->bindParam(':fechaActuacion', $fechaActuacion);
+        // $resultado->bindParam(':idUsuario', $idUsuario);
+        // $resultado->bindParam(':precio', $precio);
+        // $resultado->bindParam(':activo', $activo);
+
+        $resultado->execute();
+            echo json_encode("ok", JSON_UNESCAPED_UNICODE);
+
+        $resultado = null;
+        $db = null;
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}';
+    }
+});
+
+$app->put('/api/modificarfacturablematerialno/{id}', function (Request $request, Response $response) {
+    //declaracion de las variables de recepcion desde FRONT
+
+    $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
+
+    // echo "todas las instalaciones";
+
+    //  $sql='UPDATE 12_bici SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
+    $sql = "UPDATE atp.material SET facturable = 'no' WHERE (id ='".$id."' )";
+
+    try {
+        $db = new db();
+        $db = $db->conectDB();
+        $resultado = $db->prepare($sql);
+
+        //Asignar campos del SQL a las variables obtenidas
+       // $resultado->bindParam(':id',$id);
+        // $resultado->bindParam(':idTipoActuacion', $idTipoActuacion);
+        // $resultado->bindParam(':idNumSerie', $idNumSerie);
+        // $resultado->bindParam(':albaran', $albaran);
+        // $resultado->bindParam(':observaciones', $observaciones);
+        // $resultado->bindParam(':fechaActuacion', $fechaActuacion);
+        // $resultado->bindParam(':idUsuario', $idUsuario);
+        // $resultado->bindParam(':precio', $precio);
+        // $resultado->bindParam(':activo', $activo);
+
+        $resultado->execute();
+            echo json_encode("ok", JSON_UNESCAPED_UNICODE);
+
+        $resultado = null;
+        $db = null;
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}';
+    }
+});
+
+$app->put('/api/modificarfacturablematerialnull/{id}', function (Request $request, Response $response) {
+    //declaracion de las variables de recepcion desde FRONT
+
+    $id = $request->getAttribute('id'); // PARA RECUPERAR LA ID DEL REGISTRO QUE SE VA A HACER UPDATE
+
+    // echo "todas las instalaciones";
+
+    //  $sql='UPDATE 12_bici SET idTipoActuacion=:idtipoActuacion,idNumSerie=:idNumSerie,idUsuario=:idUsuario,observaciones=:observaciones,fechaActuacion=:fechaActuacion,precio=:precio,activo=:activo WHERE id='.$id;
+    $sql = "UPDATE atp.material SET facturable = null WHERE (id ='".$id."' )";
+
+    try {
+        $db = new db();
+        $db = $db->conectDB();
+        $resultado = $db->prepare($sql);
+
+        //Asignar campos del SQL a las variables obtenidas
+       // $resultado->bindParam(':id',$id);
+        // $resultado->bindParam(':idTipoActuacion', $idTipoActuacion);
+        // $resultado->bindParam(':idNumSerie', $idNumSerie);
+        // $resultado->bindParam(':albaran', $albaran);
+        // $resultado->bindParam(':observaciones', $observaciones);
+        // $resultado->bindParam(':fechaActuacion', $fechaActuacion);
+        // $resultado->bindParam(':idUsuario', $idUsuario);
+        // $resultado->bindParam(':precio', $precio);
+        // $resultado->bindParam(':activo', $activo);
+
+        $resultado->execute();
+            echo json_encode("ok", JSON_UNESCAPED_UNICODE);
+
+        $resultado = null;
+        $db = null;
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}';
+    }
+});
+
+
+
+
+
 //POST para crear una nueva instalación CREATE
 
 $app->post('/api/nuevo/averia',function(Request $request, Response $response){
@@ -622,13 +738,13 @@ $app->post('/api/nuevo/actuacion',function(Request $request, Response $response)
      $observaciones=$request->getParam('observaciones');
      $idaveria=$request->getParam('idaveria');
      $nid=$request->getParam('nid');
+     $partidaActuacion=$request->getParam('partidaActuacion');
 
     // echo $usuario;
     // echo $fecha;
     // echo $descripcion;
-    // echo $idaveria;
    
-    $sql="INSERT INTO atp.actuacion (idaveria, fecha, usuario, actuacion, nid, observaciones) VALUES (:idaveria, :fecha, :usuario, :actuacion, :nid, :observaciones);";
+    $sql="INSERT INTO atp.actuacion (partida, idaveria, fecha, usuario, actuacion, nid, observaciones) VALUES (:partidaActuacion, :idaveria, :fecha, :usuario, :actuacion, :nid, :observaciones);";
  
 
 
@@ -639,16 +755,17 @@ $app->post('/api/nuevo/actuacion',function(Request $request, Response $response)
 
 
         //Asignar campos del SQL a las variables obtenidas
+         $resultado->bindParam(':partidaActuacion',$partidaActuacion);
          $resultado->bindParam(':usuario',$usuario);
          $resultado->bindParam(':fecha',$fecha);
          $resultado->bindParam(':actuacion',$actuacion);
          $resultado->bindParam(':observaciones',$observaciones);
-         $resultado->bindParam(':idaveria',$idaveria );
+         $resultado->bindParam(':idaveria',$idaveria);
          $resultado->bindParam(':nid',$nid);
-       
+            
 
         $resultado->execute();
-        echo json_encode("Registro guardado con éxito",JSON_UNESCAPED_UNICODE);
+        echo json_encode("Registro guardado con éxito ",JSON_UNESCAPED_UNICODE);
 
         $resultado=null;
         $db=null;
@@ -696,6 +813,117 @@ $app->get('/api/material/categoria/{familia}',function(Request $request, Respons
     
     
     
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+
+        if($resultado->rowCount()>0){
+            $tipoInstalacion= $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($tipoInstalacion,JSON_UNESCAPED_UNICODE);
+            
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+
+    
+});
+
+$app->get('/api/material/detalle/{familia}/{categoria}',function(Request $request, Response $response){
+    // echo "todas las instalaciones";
+    //$sql="SELECT a.id, t.estado, a.fecha, a.instalacion,a.averia,a.ubicacion FROM atp.averia a inner join atp.estado t on a.id=t.idaveria where t.estado<>'ACABADA' order by 3 desc;";
+    $familia = $request->getAttribute('familia');
+    $categoria = $request->getAttribute('categoria');
+    $sql="SELECT detalle,partida from atp.tipomaterial where familia='".$familia."' and categoria='".$categoria."' order by 1 asc";
+        
+    try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+        $resultado->execute();
+
+        if($resultado->rowCount()>0){
+            $tipoInstalacion= $resultado->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($tipoInstalacion,JSON_UNESCAPED_UNICODE);
+            
+        }else{
+            echo json_encode("No se han encontrado resultados");
+        }
+        $resultado=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+
+    
+});
+
+$app->post('/api/nuevo/material',function(Request $request, Response $response){
+    //declaracion de las variables de recepcion desde FRONT
+
+    $idAveria=$request->getParam('idAveria');
+    $fecha=$request->getParam('fecha');
+    $familia=$request->getParam('familia');
+    $categoria=$request->getParam('categoria');
+    $detalle=$request->getParam('detalle');
+    $partida=$request->getParam('partida');
+    $observacion=$request->getParam('observacion');
+    $usuario=$request->getParam('usuario');
+    $nid=$request->getParam('nid');
+    $unidades=$request->getParam('unidades');
+
+
+    // echo $usuario;
+    // echo $fecha;
+    // echo $descripcion;
+    // echo $idaveria;
+   
+    $sql="INSERT INTO atp.material (idaveria,fecha,usuario,familia,categoria,detalle, nid, observacion,unidades,partida) VALUES (:idAveria, :fecha, :usuario, :familia,:categoria,:detalle, :nid, :observacion, :unidades,:partida);";
+ 
+
+   try{
+        $db= new db();     
+        $db=$db->conectDB();
+        $resultado= $db->prepare($sql);
+
+
+        //Asignar campos del SQL a las variables obtenidas
+        $resultado->bindParam(':fecha',$fecha);
+        $resultado->bindParam(':usuario',$usuario);
+         $resultado->bindParam(':familia',$familia);
+         $resultado->bindParam(':categoria',$categoria);
+         $resultado->bindParam(':detalle',$detalle);
+         $resultado->bindParam(':observacion',$observacion);
+         $resultado->bindParam(':nid',$nid );
+         $resultado->bindParam(':idAveria',$idAveria);
+         $resultado->bindParam(':partida',$partida);
+         $resultado->bindParam(':unidades',$unidades);
+       
+
+        $resultado->execute();
+
+            echo json_encode("Registro guardado con éxito",JSON_UNESCAPED_UNICODE);
+
+        $resultado=null;
+        $db=null;
+
+    }catch(PDOException $e){
+        echo '{"error":{"text":'.$e->getMessage().'}';
+    }
+});
+
+$app->get('/api/material/{id}',function(Request $request, Response $response){
+    // echo "todas las instalaciones";
+    $id= $request->getAttribute('id');
+    $sql="SELECT * FROM atp.material WHERE idaveria=".$id." order by fecha desc;";
     try{
         $db= new db();     
         $db=$db->conectDB();

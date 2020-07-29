@@ -57,8 +57,9 @@ include './login/session.php';
          <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
             <div class="navbar-nav ml-auto">
             
-            <a class="nav-item nav-link active" href="./welcome.php">Listado de Averías</a>
+               <a class="nav-item nav-link active" href="./welcome.php">Listado de Averías</a>
                <a class="nav-item nav-link " href="./nuevaAveria.php">Nueva Avería</a>
+               <a class="nav-item nav-link " href="./facturacion.php">Facturación</a>
 
                <!-- <li class="nav-item dropdown ">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
